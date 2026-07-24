@@ -107,11 +107,22 @@
                     <a href="#missions" class="nav-link">Missions</a>
                     <a href="#dashboard" class="nav-link">Live Data</a>
                     <a href="#fleet" class="nav-link">Fleet</a>
+                    <a href="#stargazer" class="nav-link">3D Stargazer</a>
+                    <a href="#configurator" class="nav-link">Suit Customizer</a>
+                    <a href="#missions" class="nav-link">Missions</a>
+                    <a href="#dashboard" class="nav-link">Live Data</a>
+                    <a href="#fleet" class="nav-link">Fleet</a>
                     <a href="#timeline" class="nav-link">Journey</a>
                     <a href="#faq" class="nav-link">FAQ</a>
                     <a href="#commander" class="nav-link">Commander</a>
                 </div>
                 
+                <button class="sound-toggle-btn" id="sound-toggle" title="Toggle Spatial Audio FX">
+                    <svg class="sound-icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                    <svg class="sound-icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                    <span>SFX</span>
+                </button>
+
                 <div class="nav-user-chip" id="nav-user-chip">
                     <img src="jasir_avatar.png" alt="Jasir" class="nav-avatar">
                     <div class="nav-user-info">
@@ -391,6 +402,62 @@
                         <div class="tech-number">04</div>
                         <h3>Panoramic Hull</h3>
                         <p>Electrochromic glass hull with 270° unobstructed views, switchable from transparent to opaque instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== INTERACTIVE SPACESUIT CUSTOMIZER ========== -->
+        <section class="customizer-section" id="configurator">
+            <div class="section-container">
+                <div class="section-header reveal-up">
+                    <span class="section-tag">PERSONALIZED GEAR</span>
+                    <h2 class="section-title">Commander Suit <span class="gradient-text">Studio</span></h2>
+                    <p class="section-desc">Customize Commander Jasir's pressure suit accents, helmet visor tint, and mission insignia in real-time.</p>
+                </div>
+                <div class="customizer-card reveal-up">
+                    <div class="customizer-grid">
+                        <div class="suit-preview-box">
+                            <div class="suit-glow-bg" id="suit-glow-bg"></div>
+                            <div class="suit-avatar-wrapper">
+                                <img src="jasir_avatar.png" alt="Commander Jasir" class="suit-avatar-img" id="suit-avatar">
+                                <div class="visor-overlay" id="visor-overlay"></div>
+                                <div class="badge-insignia" id="badge-insignia">ZNT-01A</div>
+                            </div>
+                            <div class="suit-spec-tag" id="suit-spec-tag">SPECIFICATION: TITANIUM NEON BLUE</div>
+                        </div>
+                        <div class="suit-controls-box">
+                            <h3>Suit Customization Panel</h3>
+                            <div class="control-group">
+                                <label>Accent Neon Color</label>
+                                <div class="color-options">
+                                    <button class="color-btn active" data-color="blue" style="background:#0071E3;" title="Cyanic Blue"></button>
+                                    <button class="color-btn" data-color="violet" style="background:#BF5AF2;" title="Quantum Violet"></button>
+                                    <button class="color-btn" data-color="emerald" style="background:#30D158;" title="Orbital Emerald"></button>
+                                    <button class="color-btn" data-color="gold" style="background:#FF9F0A;" title="Solar Gold"></button>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label>Helmet Visor Tint</label>
+                                <div class="tint-options">
+                                    <button class="tint-btn active" data-tint="gold">Polarized Gold</button>
+                                    <button class="tint-btn" data-tint="obsidian">Obsidian Black</button>
+                                    <button class="tint-btn" data-tint="iridescent">Chrono Chrome</button>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label>Insignia Patch</label>
+                                <div class="insignia-options">
+                                    <button class="insignia-btn active" data-patch="ZNT-01A">Commander (01A)</button>
+                                    <button class="insignia-btn" data-patch="DEV-SPECS">Full Stack Dev</button>
+                                    <button class="insignia-btn" data-patch="AIML-CORE">AI/ML Core</button>
+                                </div>
+                            </div>
+                            <button class="btn-primary customizer-save-btn" id="save-suit-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                                <span>Lock Suit Configuration</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

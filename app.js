@@ -547,8 +547,132 @@
                     obs.disconnect();
                 }
             });
-        }, { threshold: 0.3 });
-        obs.observe(gaugeArc);
+    // ================================================================
+    //  SPATIAL WEB AUDIO SYNTHESIZER & SOUND FX
+    // ================================================================
+    let audioCtx = null;
+    let isMuted = true;
+
+    function initAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+    }
+
+    function playBeep(freq = 440, duration = 0.08, type = 'sine') {
+        if (isMuted) return;
+        try {
+            initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        } catch(e){}
+    }
+
+    const soundToggle = document.getElementById('sound-toggle');
+    if (soundToggle) {
+        soundToggle.addEventListener('click', () => {
+            isMuted = !isMuted;
+            const iconOn = soundToggle.querySelector('.sound-icon-on');
+            const iconOff = soundToggle.querySelector('.sound-icon-off');
+            if (!isMuted) {
+                if (iconOn) iconOn.style.display = 'block';
+                if (iconOff) iconOff.style.display = 'none';
+                soundToggle.style.borderColor = '#0071E3';
+                playBeep(880, 0.15, 'sine');
+            } else {
+                if (iconOn) iconOn.style.display = 'none';
+                if (iconOff) iconOff.style.display = 'block';
+                soundToggle.style.borderColor = 'var(--border)';
+            }
+        });
+    }
+
+    // Attach subtle hover/click sound FX across interactive elements
+    document.querySelectorAll('button, .nav-link, .card-btn, .color-btn, .tint-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => playBeep(320, 0.04, 'triangle'));
+        el.addEventListener('click', () => playBeep(580, 0.08, 'sine'));
+    });
+
+    // ================================================================
+    //  SPACESUIT CUSTOMIZER INTERACTION HANDLER
+    // ================================================================
+    const suitGlow = document.getElementById('suit-glow-bg');
+    const suitWrapper = document.getElementById('suit-avatar-wrapper') || document.querySelector('.suit-avatar-wrapper');
+    const visorOverlay = document.getElementById('visor-overlay');
+    const badgeInsignia = document.getElementById('badge-insignia');
+    const suitSpecTag = document.getElementById('suit-spec-tag');
+
+    const colorMap = {
+        blue: { color: '#0071E3', name: 'TITANIUM NEON BLUE' },
+        violet: { color: '#BF5AF2', name: 'QUANTUM VIOLET' },
+        emerald: { color: '#30D158', name: 'ORBITAL EMERALD' },
+        gold: { color: '#FF9F0A', name: 'SOLAR GOLD' }
+    };
+
+    const tintMap = {
+        gold: 'linear-gradient(135deg, rgba(255, 159, 10, 0.4), rgba(255, 215, 0, 0.1))',
+        obsidian: 'linear-gradient(135deg, rgba(15, 15, 25, 0.8), rgba(0, 0, 0, 0.6))',
+        iridescent: 'linear-gradient(135deg, rgba(0, 229, 255, 0.4), rgba(255, 0, 229, 0.2))'
+    };
+
+    // Accent Color Switcher
+    document.querySelectorAll('.color-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const key = btn.dataset.color;
+            if (colorMap[key]) {
+                if (suitGlow) suitGlow.style.background = `radial-gradient(circle, ${colorMap[key].color}, transparent 70%)`;
+                if (suitWrapper) {
+                    suitWrapper.style.borderColor = colorMap[key].color;
+                    suitWrapper.style.boxShadow = `0 0 35px ${colorMap[key].color}88`;
+                }
+                if (suitSpecTag) suitSpecTag.textContent = `SPECIFICATION: ${colorMap[key].name}`;
+            }
+        });
+    });
+
+    // Visor Tint Switcher
+    document.querySelectorAll('.tint-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tint-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const tint = btn.dataset.tint;
+            if (visorOverlay && tintMap[tint]) {
+                visorOverlay.style.background = tintMap[tint];
+            }
+        });
+    });
+
+    // Insignia Switcher
+    document.querySelectorAll('.insignia-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.insignia-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if (badgeInsignia) badgeInsignia.textContent = btn.dataset.patch;
+        });
+    });
+
+    const saveSuitBtn = document.getElementById('save-suit-btn');
+    if (saveSuitBtn) {
+        saveSuitBtn.addEventListener('click', () => {
+            playBeep(920, 0.25, 'sine');
+            const originalText = saveSuitBtn.innerHTML;
+            saveSuitBtn.innerHTML = `<span>✓ SUIT CONFIGURATION LOCKED</span>`;
+            saveSuitBtn.style.background = '#30D158';
+            setTimeout(() => {
+                saveSuitBtn.innerHTML = originalText;
+                saveSuitBtn.style.background = '';
+            }, 3000);
+        });
     }
 
 })();
