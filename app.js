@@ -781,17 +781,128 @@
         });
     });
 
-    const saveSuitBtn = document.getElementById('save-suit-btn');
-    if (saveSuitBtn) {
-        saveSuitBtn.addEventListener('click', () => {
-            playBeep(920, 0.25, 'sine');
-            const originalText = saveSuitBtn.innerHTML;
-            saveSuitBtn.innerHTML = `<span>✓ SUIT CONFIGURATION LOCKED</span>`;
-            saveSuitBtn.style.background = '#30D158';
+    // ================================================================
+    //  ORBITAL STARGAZER VIEWPORT SELECTION LOGIC
+    // ================================================================
+    document.querySelectorAll('.dest-node').forEach(node => {
+        node.addEventListener('click', () => {
+            document.querySelectorAll('.dest-node').forEach(n => n.classList.remove('active'));
+            node.classList.add('active');
+
+            const destName = document.getElementById('dest-name');
+            const destDesc = document.getElementById('dest-desc');
+            const destAlt = document.getElementById('dest-alt');
+            const destTime = document.getElementById('dest-time');
+            const destG = document.getElementById('dest-g');
+
+            if (destName) destName.textContent = node.dataset.dest;
+            if (destDesc) destDesc.textContent = node.dataset.desc;
+            if (destAlt) destAlt.textContent = node.dataset.alt;
+            if (destTime) destTime.textContent = node.dataset.time;
+            if (destG) destG.textContent = node.dataset.g;
+
+            playBeep(720, 0.1, 'sine');
+        });
+    });
+
+    const solLockBtn = document.getElementById('sol-lock-btn');
+    if (solLockBtn) {
+        solLockBtn.addEventListener('click', () => {
+            playBeep(980, 0.2, 'sine');
+            const activeNode = document.querySelector('.dest-node.active');
+            const targetName = activeNode ? activeNode.dataset.dest : 'Selected Orbit';
+            solLockBtn.innerHTML = `<span>✓ ${targetName.toUpperCase()} LOCKED</span>`;
+            solLockBtn.style.background = '#30D158';
             setTimeout(() => {
-                saveSuitBtn.innerHTML = originalText;
-                saveSuitBtn.style.background = '';
+                solLockBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m12 8 4 4-4 4M8 12h8"/></svg><span>Lock Orbital Target</span>`;
+                solLockBtn.style.background = '';
             }, 3000);
+        });
+    }
+
+    // ================================================================
+    //  QUANTUM LAUNCH FLIGHT SIMULATOR CONSOLE LOGIC
+    // ================================================================
+    const btnIgnite = document.getElementById('btn-ignite');
+    const btnSimReset = document.getElementById('btn-sim-reset');
+    const simRocket = document.getElementById('sim-rocket');
+    const rocketFire = document.getElementById('rocket-fire');
+    const simProgress = document.getElementById('sim-progress');
+    const hudMach = document.getElementById('hud-mach');
+    const hudAlt = document.getElementById('hud-alt');
+    const hudG = document.getElementById('hud-g');
+    const hudStatus = document.getElementById('hud-status');
+    const simLogBox = document.getElementById('sim-log-box');
+
+    let simInterval = null;
+    let isLaunching = false;
+
+    function addSimLog(msg) {
+        if (!simLogBox) return;
+        const line = document.createElement('div');
+        line.className = 'log-line';
+        line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+        simLogBox.appendChild(line);
+        simLogBox.scrollTop = simLogBox.scrollHeight;
+    }
+
+    if (btnIgnite) {
+        btnIgnite.addEventListener('click', () => {
+            if (isLaunching) return;
+            isLaunching = true;
+            playBeep(220, 0.4, 'sawtooth');
+
+            if (rocketFire) rocketFire.style.opacity = '1';
+            if (hudStatus) { hudStatus.textContent = 'IGNITION & LIFTOFF'; hudStatus.style.color = '#ff9f0a'; }
+            addSimLog('MAIN ENGINES IGNITED. T-0 LIFTOFF!');
+
+            let progress = 0;
+            let alt = 0;
+            let mach = 0;
+            let gForce = 1.0;
+
+            simInterval = setInterval(() => {
+                progress += 1;
+                alt += 4.0;
+                mach += 0.25;
+                gForce = Math.min(3.8, 1.0 + (progress * 0.03)).toFixed(1);
+
+                if (simProgress) simProgress.style.width = `${progress}%`;
+                if (hudMach) hudMach.textContent = mach.toFixed(2);
+                if (hudAlt) hudAlt.textContent = `${alt.toFixed(1)} KM`;
+                if (hudG) hudG.textContent = `${gForce} G`;
+
+                // Move rocket graphic upward
+                if (simRocket) simRocket.style.bottom = `${40 + (progress * 2.2)}px`;
+
+                if (progress === 30) addSimLog('MAX Q PASSED. AERODYNAMIC PRESSURE NOMINAL.');
+                if (progress === 60) addSimLog('STAGE 1 SEPARATION CONFIRMED.');
+                if (progress === 90) addSimLog('APPROACHING ORBITAL INSERTION VELOCITY.');
+
+                if (progress >= 100) {
+                    clearInterval(simInterval);
+                    if (rocketFire) rocketFire.style.opacity = '0';
+                    if (hudStatus) { hudStatus.textContent = 'ORBIT ACHIEVED ✓'; hudStatus.style.color = '#30D158'; }
+                    addSimLog('SUCCESS: COMMANDER JASIR IS IN ORBIT (400 KM)!');
+                    playBeep(880, 0.3, 'sine');
+                }
+            }, 100);
+        });
+    }
+
+    if (btnSimReset) {
+        btnSimReset.addEventListener('click', () => {
+            if (simInterval) clearInterval(simInterval);
+            isLaunching = false;
+            if (rocketFire) rocketFire.style.opacity = '0';
+            if (simRocket) simRocket.style.bottom = '40px';
+            if (simProgress) simProgress.style.width = '0%';
+            if (hudMach) hudMach.textContent = '0.00';
+            if (hudAlt) hudAlt.textContent = '0.0 KM';
+            if (hudG) hudG.textContent = '1.0 G';
+            if (hudStatus) { hudStatus.textContent = 'READY ON PAD'; hudStatus.style.color = '#3b82f6'; }
+            addSimLog('Cockpit reset. Systems ready for re-ignition.');
+            playBeep(440, 0.1, 'sine');
         });
     }
 

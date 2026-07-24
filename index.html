@@ -1020,6 +1020,112 @@
             </div>
         </section>
 
+        <!-- ========== 3D SOLAR SYSTEM & ORBITAL DESTINATIONS ========== -->
+        <section class="solar-section" id="stargazer">
+            <div class="section-container">
+                <div class="section-header reveal-up">
+                    <span class="section-tag">EXPLORE DESTINATIONS</span>
+                    <h2 class="section-title">Orbital Stargazer <span class="gradient-text">Viewport</span></h2>
+                    <p class="section-desc">Interactive orbital destination planner. Select a cosmic target to calculate trajectory, distance, and flight window.</p>
+                </div>
+                <div class="solar-card reveal-up">
+                    <div class="solar-grid">
+                        <div class="solar-viewport-box">
+                            <div class="solar-orbit-ring ring-outer"></div>
+                            <div class="solar-orbit-ring ring-mid"></div>
+                            <div class="solar-orbit-ring ring-inner"></div>
+                            
+                            <!-- Destination Nodes -->
+                            <div class="dest-node node-earth active" data-dest="Earth Orbit" data-alt="400 KM" data-time="3 Days" data-g="1.0 G" data-desc="Low Earth Orbit with panoramic views of home continent & 16 daily cosmic sunrises.">
+                                <span class="node-sphere globe-earth"></span>
+                                <span class="node-label">Earth LEO</span>
+                            </div>
+                            <div class="dest-node node-moon" data-dest="Lunar Orbit" data-alt="384,400 KM" data-time="7 Days" data-g="0.16 G" data-desc="Orbiting the Moon. Experience the historic Earthrise phenomenon across the dark lunar sea.">
+                                <span class="node-sphere globe-moon"></span>
+                                <span class="node-label">The Moon</span>
+                            </div>
+                            <div class="dest-node node-mars" data-dest="Mars Transfer" data-alt="54.6M KM" data-time="180 Days" data-g="0.38 G" data-desc="Interplanetary voyage toward Olympus Mons and the red sands of the Martian horizon.">
+                                <span class="node-sphere globe-mars"></span>
+                                <span class="node-label">Mars Orbit</span>
+                            </div>
+                        </div>
+
+                        <div class="solar-telemetry-box">
+                            <span class="sol-tag">DESTINATION TELEMETRY</span>
+                            <h3 class="sol-title" id="dest-name">Earth LEO Orbit</h3>
+                            <p class="sol-desc" id="dest-desc">Low Earth Orbit with panoramic views of home continent & 16 daily cosmic sunrises.</p>
+                            <div class="sol-stats-grid">
+                                <div class="sol-stat">
+                                    <span class="sol-val" id="dest-alt">400 KM</span>
+                                    <span class="sol-lbl">Distance / Alt</span>
+                                </div>
+                                <div class="sol-stat">
+                                    <span class="sol-val" id="dest-time">3 Days</span>
+                                    <span class="sol-lbl">Mission Window</span>
+                                </div>
+                                <div class="sol-stat">
+                                    <span class="sol-val" id="dest-g">1.0 G</span>
+                                    <span class="sol-lbl">Surface Gravity</span>
+                                </div>
+                                <div class="sol-stat">
+                                    <span class="sol-val" style="color:#22c55e;">CLEAR</span>
+                                    <span class="sol-lbl">Solar Weather</span>
+                                </div>
+                            </div>
+                            <button class="btn-primary sol-btn" id="sol-lock-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m12 8 4 4-4 4M8 12h8"/></svg>
+                                <span>Lock Orbital Target</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== QUANTUM LAUNCH FLIGHT SIMULATOR CONSOLE ========== -->
+        <section class="simulator-section" id="simulator">
+            <div class="section-container">
+                <div class="section-header reveal-up">
+                    <span class="section-tag">COCKPIT SIMULATION</span>
+                    <h2 class="section-title">Quantum Flight <span class="gradient-text">Console</span></h2>
+                    <p class="section-desc">Test Commander Jasir's launch trajectory in real-time. Engage main thrusters and initiate orbital insertion.</p>
+                </div>
+                <div class="sim-card reveal-up">
+                    <div class="sim-cockpit-grid">
+                        <div class="sim-screen-box">
+                            <div class="sim-grid-overlay"></div>
+                            <div class="sim-rocket-graphic" id="sim-rocket">
+                                <div class="rocket-fire" id="rocket-fire"></div>
+                                🚀
+                            </div>
+                            <div class="sim-hud-stats">
+                                <div class="hud-row"><span>MACH SPEED:</span><span id="hud-mach">0.00</span></div>
+                                <div class="hud-row"><span>ALTITUDE:</span><span id="hud-alt">0.0 KM</span></div>
+                                <div class="hud-row"><span>G-FORCE:</span><span id="hud-g">1.0 G</span></div>
+                                <div class="hud-row"><span>STATUS:</span><span id="hud-status" style="color:#3b82f6;">READY ON PAD</span></div>
+                            </div>
+                            <div class="sim-progress-bar"><div class="sim-progress-fill" id="sim-progress"></div></div>
+                        </div>
+                        <div class="sim-controls-box">
+                            <h3>Cockpit Controls</h3>
+                            <p class="sim-sub">Initiate ignition sequence for ZNT Odyssey. Max Q at T+01:12.</p>
+                            <div class="sim-btn-group">
+                                <button class="sim-act-btn btn-ignite" id="btn-ignite">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                                    <span>IGNITE ENGINES</span>
+                                </button>
+                                <button class="sim-act-btn btn-reset" id="btn-sim-reset">RESET COCKPIT</button>
+                            </div>
+                            <div class="sim-log-box" id="sim-log-box">
+                                <div class="log-line">[SYS] Cockpit telemetry connected to ZNT-01A.</div>
+                                <div class="log-line">[SYS] All atmospheric sensors online. Ready for countdown.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Holographic Boarding Pass Modal -->
         <div class="modal-overlay" id="boarding-pass-modal">
             <div class="boarding-pass-card">
