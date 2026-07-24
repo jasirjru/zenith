@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZENITH — The Future of Space Travel</title>
+    <meta name="description" content="Book your journey beyond Earth. Suborbital flights, orbital expeditions, and lunar voyages. The cosmos awaits.">
+    <meta name="theme-color" content="#050510">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ========== LOGIN OVERLAY ========== -->
+    <div id="login-overlay">
+        <div class="login-particles" id="login-particles"></div>
+        <div class="login-container">
+            <div class="login-brand">
+                <div class="login-logo">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" stroke="url(#grad1)" stroke-width="2" opacity="0.6"/>
+                        <circle cx="20" cy="20" r="12" stroke="url(#grad1)" stroke-width="1.5" opacity="0.4"/>
+                        <circle cx="20" cy="20" r="4" fill="url(#grad1)"/>
+                        <ellipse cx="20" cy="20" rx="18" ry="7" stroke="url(#grad1)" stroke-width="1" opacity="0.3" transform="rotate(-30 20 20)"/>
+                        <ellipse cx="20" cy="20" rx="18" ry="7" stroke="url(#grad1)" stroke-width="1" opacity="0.3" transform="rotate(30 20 20)"/>
+                        <defs>
+                            <linearGradient id="grad1" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#3b82f6"/>
+                                <stop offset="100%" stop-color="#8b5cf6"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="login-brand-text">ZENITH</span>
+            </div>
+
+            <!-- VIP Passenger Avatar Card -->
+            <div class="vip-user-badge">
+                <div class="vip-avatar-wrap">
+                    <img src="jasir_avatar.png" alt="Jasir Abdul Hameed" class="vip-avatar">
+                    <span class="vip-pulse-ring"></span>
+                </div>
+                <div class="vip-info">
+                    <h3 class="vip-name">Jasir Abdul Hameed</h3>
+                    <div class="vip-meta">
+                        <span class="vip-age">Age 23</span>
+                        <span class="vip-sep">•</span>
+                        <span class="vip-role">Orbital Developer</span>
+                    </div>
+                    <div class="vip-tag">Full Stack & Game Developer</div>
+                </div>
+            </div>
+
+            <!-- Orbital Scanner -->
+            <div class="scanner" id="scanner-trigger">
+                <div class="scanner-ring ring-outer"></div>
+                <div class="scanner-ring ring-mid"></div>
+                <div class="scanner-ring ring-inner"></div>
+                <div class="scanner-sweep"></div>
+                <div class="scanner-core">
+                    <svg id="scanner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4"/>
+                        <path d="M12 2a10 10 0 0 1 10 10"/>
+                        <path d="M22 12A10 10 0 0 1 12 22"/>
+                        <path d="M12 22A10 10 0 0 1 2 12"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </div>
+                <div class="scanner-label" id="scanner-label">Tap to Authenticate</div>
+            </div>
+
+            <p class="login-subtitle">Quantum biometric neural scanner</p>
+
+            <button class="login-enter-btn" id="login-enter-btn">
+                <span>Enter as Commander Jasir</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+
+            <p class="login-footnote">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lock-icon"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Reservation Ref: ZNT-2027-JAH-023
+            </p>
+        </div>
+    </div>
+
+    <!-- ========== THREE.JS CANVAS ========== -->
+    <canvas id="cosmos-canvas"></canvas>
+
+    <!-- ========== MAIN APPLICATION ========== -->
+    <div id="main-content">
+
+        <!-- Navigation -->
+        <nav class="main-nav" id="main-nav">
+            <div class="nav-inner">
+                <a href="#" class="nav-logo">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav-logo-icon">
+                        <circle cx="20" cy="20" r="18" stroke="url(#navgrad)" stroke-width="2" opacity="0.8"/>
+                        <circle cx="20" cy="20" r="4" fill="url(#navgrad)"/>
+                        <ellipse cx="20" cy="20" rx="18" ry="7" stroke="url(#navgrad)" stroke-width="1" opacity="0.4" transform="rotate(-30 20 20)"/>
+                        <defs><linearGradient id="navgrad" x1="0" y1="0" x2="40" y2="40"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+                    </svg>
+                    <span>ZENITH</span>
+                </a>
+                <div class="nav-links">
+                    <a href="#missions" class="nav-link">Missions</a>
+                    <a href="#dashboard" class="nav-link">Live Data</a>
+                    <a href="#fleet" class="nav-link">Fleet</a>
+                    <a href="#timeline" class="nav-link">Journey</a>
+                    <a href="#faq" class="nav-link">FAQ</a>
+                    <a href="#commander" class="nav-link">Commander</a>
+                </div>
+                
+                <div class="nav-user-chip" id="nav-user-chip">
+                    <img src="jasir_avatar.png" alt="Jasir" class="nav-avatar">
+                    <div class="nav-user-info">
+                        <span class="nav-user-name">Jasir A. Hameed</span>
+                        <span class="nav-user-status">Seat 01A Reserved</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge reveal-up">
+                        <span class="badge-dot"></span>
+                        CONFIRMED RESERVATION: JASIR ABDUL HAMEED
+                    </div>
+                    <h1 class="hero-title reveal-up delay-1">
+                        Welcome Aboard,<br>
+                        <span class="gradient-text">Commander Jasir.</span>
+                    </h1>
+                    <p class="hero-description reveal-up delay-2">
+                        Full Stack Developer, Game Developer & AI/ML Engineer (Age 23). Your orbital flight to 400 km altitude is locked for 2027.
+                    </p>
+                    <div class="hero-actions reveal-up delay-3">
+                        <button class="btn-primary" id="btn-view-pass">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                            <span>View Boarding Pass</span>
+                        </button>
+                        <button class="btn-ghost" id="hero-film-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            <span>Launch Simulation</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hero Spotlight Card -->
+                <div class="hero-profile-card reveal-up delay-2" data-tilt>
+                    <div class="profile-card-inner">
+                        <div class="profile-header">
+                            <img src="jasir_avatar.png" alt="Jasir Abdul Hameed" class="profile-img">
+                            <div class="profile-title-box">
+                                <h2>Jasir Abdul Hameed</h2>
+                                <p class="profile-subtitle">Age 23 • Full Stack & Game Dev</p>
+                                <span class="profile-verified">AI / ML Engineer</span>
+                            </div>
+                        </div>
+                        <div class="profile-stats-grid">
+                            <div class="p-stat">
+                                <span class="p-val">TIER II</span>
+                                <span class="p-lbl">Mission Flight</span>
+                            </div>
+                            <div class="p-stat">
+                                <span class="p-val">01A</span>
+                                <span class="p-lbl">Window Suite</span>
+                            </div>
+                            <div class="p-stat">
+                                <span class="p-val">400 KM</span>
+                                <span class="p-lbl">Target Orbit</span>
+                            </div>
+                        </div>
+                        <div class="profile-skills">
+                            <span class="skill-tag">Full Stack</span>
+                            <span class="skill-tag">Game Dev</span>
+                            <span class="skill-tag">AI / ML</span>
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Flutter</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    Experience weightlessness. Witness Earth from orbit. Walk among the stars. 
+                    Zenith makes the impossible your next adventure.
+                </p>
+                <div class="hero-actions reveal-up delay-3">
+                    <button class="btn-primary" id="hero-book-btn">
+                        <span>Book Your Journey</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </button>
+                    <button class="btn-ghost" id="hero-film-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        <span>Watch Film</span>
+                    </button>
+                </div>
+            </div>
+            <div class="scroll-indicator" id="scroll-indicator">
+                <span>Scroll to Explore</span>
+                <div class="scroll-line">
+                    <div class="scroll-dot"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Bar -->
+        <section class="stats-bar" id="stats">
+            <div class="stats-inner">
+                <div class="stat reveal-up">
+                    <span class="stat-number" data-target="12">0</span>
+                    <span class="stat-suffix">+</span>
+                    <span class="stat-label">Missions Completed</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat reveal-up delay-1">
+                    <span class="stat-number" data-target="247">0</span>
+                    <span class="stat-suffix"></span>
+                    <span class="stat-label">Passengers Flown</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat reveal-up delay-2">
+                    <span class="stat-number" data-target="100">0</span>
+                    <span class="stat-suffix">%</span>
+                    <span class="stat-label">Safety Record</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat reveal-up delay-3">
+                    <span class="stat-number" data-target="3">0</span>
+                    <span class="stat-suffix"></span>
+                    <span class="stat-label">Destinations</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Missions Section -->
+        <section class="missions" id="missions">
+            <div class="section-container">
+                <div class="section-header reveal-up">
+                    <span class="section-tag">SELECT YOUR MISSION</span>
+                    <h2 class="section-title">Three Paths to the Stars</h2>
+                    <p class="section-desc">From your first taste of weightlessness to orbiting the Moon, choose the experience that defines your legacy.</p>
+                </div>
+
+                <div class="missions-grid">
+                    <!-- Mission 1: Suborbital -->
+                    <div class="mission-card reveal-up delay-1" data-tilt>
+                        <div class="card-glow card-glow-blue"></div>
+                        <div class="card-tier">TIER I</div>
+                        <div class="card-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M24 4 L28 18 L42 18 L30 27 L34 42 L24 33 L14 42 L18 27 L6 18 L20 18 Z" stroke="#3b82f6" fill="rgba(59,130,246,0.1)"/></svg>
+                        </div>
+                        <h3 class="card-name">Suborbital</h3>
+                        <p class="card-tagline">Touch the edge of space</p>
+                        <div class="card-price">
+                            <span class="price-currency">$</span>
+                            <span class="price-amount">250</span>
+                            <span class="price-unit">K</span>
+                        </div>
+                        <ul class="card-features">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>2-hour flight duration</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>100 km altitude (Kármán line)</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>5 minutes of weightlessness</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Earth curvature views</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>3-day pre-flight training</li>
+                        </ul>
+                        <button class="card-btn card-btn-blue">Reserve Seat</button>
+                    </div>
+
+                    <!-- Mission 2: Orbital (Featured) -->
+                    <div class="mission-card mission-card-featured reveal-up" data-tilt>
+                        <div class="card-glow card-glow-violet"></div>
+                        <div class="card-badge">MOST POPULAR</div>
+                        <div class="card-tier">TIER II</div>
+                        <div class="card-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="16" stroke="#8b5cf6" fill="rgba(139,92,246,0.1)"/><ellipse cx="24" cy="24" rx="22" ry="8" stroke="#8b5cf6" transform="rotate(-20 24 24)"/><circle cx="24" cy="24" r="3" fill="#8b5cf6"/></svg>
+                        </div>
+                        <h3 class="card-name">Orbital</h3>
+                        <p class="card-tagline">Live among the stars</p>
+                        <div class="card-price">
+                            <span class="price-currency">$</span>
+                            <span class="price-amount">2.5</span>
+                            <span class="price-unit">M</span>
+                        </div>
+                        <ul class="card-features">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>3-day orbital expedition</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>400 km altitude (ISS orbit)</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>48 hours of weightlessness</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>16 sunrises per day</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Private observation dome</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Michelin-star space dining</li>
+                        </ul>
+                        <button class="card-btn card-btn-violet">Reserve Seat</button>
+                    </div>
+
+                    <!-- Mission 3: Lunar -->
+                    <div class="mission-card reveal-up delay-2" data-tilt>
+                        <div class="card-glow card-glow-cyan"></div>
+                        <div class="card-tier">TIER III</div>
+                        <div class="card-icon">
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="16" stroke="#06b6d4" fill="rgba(6,182,212,0.1)"/><circle cx="18" cy="18" r="3" stroke="#06b6d4" opacity="0.5"/><circle cx="28" cy="28" r="2" stroke="#06b6d4" opacity="0.5"/><circle cx="30" cy="16" r="1.5" stroke="#06b6d4" opacity="0.4"/></svg>
+                        </div>
+                        <h3 class="card-name">Lunar</h3>
+                        <p class="card-tagline">Orbit the Moon</p>
+                        <div class="card-price">
+                            <span class="price-currency">$</span>
+                            <span class="price-amount">25</span>
+                            <span class="price-unit">M</span>
+                        </div>
+                        <ul class="card-features">
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>7-day lunar voyage</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>384,400 km distance</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Full lunar orbit</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Earthrise observation</li>
+                            <li><svg viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>VIP concierge throughout</li>
+                        </ul>
+                        <button class="card-btn card-btn-cyan">Reserve Seat</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="experience" id="experience">
+            <div class="section-container">
+                <div class="section-header reveal-up">
+                    <span class="section-tag">THE EXPERIENCE</span>
+                    <h2 class="section-title">What Awaits You</h2>
+                </div>
+                <div class="experience-grid">
+                    <div class="exp-card reveal-up delay-1" data-tilt>
+                        <div class="exp-icon exp-icon-blue">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                        </div>
+                        <h3>Zero Gravity</h3>
+                        <p>Float freely in microgravity. Feel the pure liberation of weightlessness as Earth turns beneath you.</p>
+                    </div>
+                    <div class="exp-card reveal-up delay-2" data-tilt>
+                        <div class="exp-icon exp-icon-violet">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                        </div>
+                        <h3>Earthrise View</h3>
+                        <p>Witness the most photographed phenomenon in space — Earth rising over the lunar horizon.</p>
+                    </div>
+                    <div class="exp-card reveal-up delay-3" data-tilt>
+                        <div class="exp-icon exp-icon-cyan">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48 2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48 2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
+                        </div>
+                        <h3>Cosmic Sunrises</h3>
+                        <p>Experience 16 sunrises and sunsets every 24 hours as you orbit at 28,000 km/h.</p>
+                    </div>
+                    <div class="exp-card reveal-up delay-4" data-tilt>
+                        <div class="exp-icon exp-icon-amber">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                        </div>
+                        <h3>Space Dining</h3>
+                        <p>Savour a Michelin-starred menu reengineered for zero gravity by world-renowned chefs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Section -->
+        <section class="technology" id="technology">
+            <div class="section-container">
+                <div class="section-header reveal-up">
+                    <span class="section-tag">ENGINEERING</span>
+                    <h2 class="section-title">Built for the Cosmos</h2>
+                    <p class="section-desc">Every component is designed, tested, and certified to exceed the most rigorous aerospace safety standards.</p>
+                </div>
+                <div class="tech-grid">
+                    <div class="tech-card reveal-up delay-1">
+                        <div class="tech-number">01</div>
+                        <h3>Quantum Navigation</h3>
+                        <p>AI-driven navigation with quantum computing for real-time trajectory optimization and hazard avoidance.</p>
+                    </div>
+                    <div class="tech-card reveal-up delay-2">
+                        <div class="tech-number">02</div>
+                        <h3>Neural Life Support</h3>
+                        <p>Self-regulating atmospheric systems that adapt to each passenger's biometric readings in real-time.</p>
+                    </div>
+                    <div class="tech-card reveal-up delay-3">
+                        <div class="tech-number">03</div>
+                        <h3>Reusable Propulsion</h3>
+                        <p>Fully reusable methane-oxygen engines with 99.997% reliability across 200+ successful ignitions.</p>
+                    </div>
+                    <div class="tech-card reveal-up delay-4">
+                        <div class="tech-number">04</div>
+                        <h3>Panoramic Hull</h3>
+                        <p>Electrochromic glass hull with 270° unobstructed views, switchable from transparent to opaque instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== MISSION CONTROL DASHBOARD ========== -->
+        <section class="dashboard-section" id="dashboard">
+            <div class="section-container">
+                <div class="section-header reveal-up">
+                    <span class="section-tag">LIVE TELEMETRY</span>
+                    <h2 class="section-title">Mission Control <span class="gradient-text">Dashboard</span></h2>
+                    <p class="section-desc">Real-time flight data from Zenith spacecraft currently in orbit. All systems nominal.</p>
+                </div>
+                <div class="dashboard-grid">
+                    <!-- Gauge: Altitude -->
+                    <div class="dash-card reveal-up delay-1">
+                        <div class="dash-label">ORBITAL ALTITUDE</div>
+                        <div class="gauge-wrap">
+                            <svg class="gauge-svg" viewBox="0 0 120 80">
+                                <path d="M10 70 A50 50 0 0 1 110 70" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="10" stroke-linecap="round"/>
+                                <path class="gauge-arc" id="gauge-alt" d="M10 70 A50 50 0 0 1 110 70" fill="none" stroke="url(#gBlue)" stroke-width="10" stroke-linecap="round" stroke-dasharray="157" stroke-dashoffset="50"/>
+                                <defs>
+                                    <linearGradient id="gBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#3b82f6"/>
+                                        <stop offset="100%" stop-color="#06b6d4"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="gauge-value"><span class="gauge-num" id="gauge-alt-num">400</span><span class="gauge-unit">km</span></div>
+                        </div>
+                        <div class="dash-sublabel">Above Earth's Surface</div>
+                        <div class="dash-status dash-status-ok">◉ NOMINAL</div>
+                    </div>
+                    <!-- Gauge: Velocity -->
+                    <div class="dash-card reveal-up delay-2">
+                        <div class="dash-label">ORBITAL VELOCITY</div>
+                        <div class="gauge-wrap">
+                            <svg class="gauge-svg" viewBox="0 0 120 80">
+                                <path d="M10 70 A50 50 0 0 1 110 70" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="10" stroke-linecap="round"/>
+                                <path class="gauge-arc" d="M10 70 A50 50 0 0 1 110 70" fill="none" stroke="url(#gViolet)" stroke-width="10" stroke-linecap="round" stroke-dasharray="157" stroke-dashoffset="30"/>
+                                <defs>
+                                    <linearGradient id="gViolet" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#8b5cf6"/>
+                                        <stop offset="100%" stop-color="#ec4899"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="gauge-value"><span class="gauge-num" id="gauge-vel-num">27.6</span><span class="gauge-unit">km/s</span></div>
+                        </div>
+                        <div class="dash-sublabel">Relative to Earth</div>
+                        <div class="dash-status dash-status-ok">◉ NOMINAL</div>
+                    </div>
+                    <!-- Telemetry List -->
+                    <div class="dash-card dash-card-wide reveal-up delay-3">
+                        <div class="dash-label">SYSTEM TELEMETRY</div>
+                        <ul class="telemetry-list">
+                            <li class="tele-row">
+                                <span class="tele-key">Cabin Pressure</span>
+                                <div class="tele-bar-wrap"><div class="tele-bar" style="width:92%; background: linear-gradient(90deg,#3b82f6,#06b6d4);"></div></div>
+                                <span class="tele-val tele-ok">1.01 atm</span>
+                            </li>
+                            <li class="tele-row">
+                                <span class="tele-key">Cabin Temp</span>
+                                <div class="tele-bar-wrap"><div class="tele-bar" style="width:78%; background: linear-gradient(90deg,#8b5cf6,#3b82f6);"></div></div>
+                                <span class="tele-val tele-ok">22.3 °C</span>
+                            </li>
+                            <li class="tele-row">
+                                <span class="tele-key">Fuel Reserve</span>
+                                <div class="tele-bar-wrap"><div class="tele-bar" style="width:65%; background: linear-gradient(90deg,#f59e0b,#f97316);"></div></div>
+                                <span class="tele-val tele-warn">65%</span>
+                            </li>
+                            <li class="tele-row">
+                                <span class="tele-key">Solar Power</span>
+                                <div class="tele-bar-wrap"><div class="tele-bar" style="width:97%; background: linear-gradient(90deg,#22c55e,#06b6d4);"></div></div>
+                                <span class="tele-val tele-ok">97%</span>
+                            </li>
+                            <li class="tele-row">
+                                <span class="tele-key">Signal Strength</span>
+                                <div class="tele-bar-wrap"><div class="tele-bar" style="width:88%; background: linear-gradient(90deg,#3b82f6,#8b5cf6);"></div></div>
+                                <span class="tele-val tele-ok">88 dBm</span>
+                            </li>
+                            <li class="tele-row">
+                                <span class="tele-key">Hull Integrity</span>
+                                <div class="tele-bar-wrap"><div class="tele-bar" style="width:100%; background: linear-gradient(90deg,#22c55e,#06b6d4);"></div></div>
+                                <span class="tele-val tele-ok">100%</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Live Stats mini -->
+                    <div class="dash-card reveal-up delay-4">
+                        <div class="dash-label">MISSION CLOCK</div>
+                        <div class="mission-clock" id="mission-clock">
+                            <div class="mc-block"><span class="mc-num" id="mc-d">02</span><span class="mc-lbl">Days</span></div>
+                            <div class="mc-sep">:</div>
+                            <div class="mc-block"><span class="mc-num" id="mc-h">14</span><span class="mc-lbl">Hours</span></div>
+                            <div class="mc-sep">:</div>
+                            <div class="mc-block"><span class="mc-num" id="mc-m">37</span><span class="mc-lbl">Mins</span></div>
+                        </div>
+                        <div class="dash-sublabel">Flight ZNT-009 Elapsed</div>
+                        <div class="orbit-counter">
+                            <span class="orbit-num" id="orbit-count">42</span>
+                            <span class="orbit-lbl">Orbits Completed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== FLEET SHOWCASE ========== -->
+        <section class="fleet-section" id="fleet">
+            <div class="section-container">
+                <div class="section-header reveal-up">
+                    <span class="section-tag">OUR VESSELS</span>
+                    <h2 class="section-title">The Zenith <span class="gradient-text">Fleet</span></h2>
+                    <p class="section-desc">Three extraordinary spacecraft, each engineered for a different chapter of your cosmic journey.</p>
+                </div>
+                <div class="fleet-grid">
+                    <div class="fleet-card reveal-up delay-1" data-tilt>
+                        <div class="fleet-visual fleet-visual-aurora">
+                            <svg viewBox="0 0 200 160" class="spacecraft-svg">
+                                <ellipse cx="100" cy="110" rx="60" ry="12" fill="rgba(59,130,246,0.15)" />
+                                <polygon points="100,20 115,90 100,100 85,90" fill="url(#sfBlue)" />
+                                <ellipse cx="100" cy="100" rx="22" ry="8" fill="url(#sfBlue2)" />
+                                <polygon points="85,90 60,105 65,95" fill="url(#sfBlue3)" opacity="0.7"/>
+                                <polygon points="115,90 140,105 135,95" fill="url(#sfBlue3)" opacity="0.7"/>
+                                <circle cx="100" cy="115" r="4" fill="#3b82f6" class="engine-glow"/>
+                                <circle cx="92" cy="118" r="2.5" fill="#06b6d4" class="engine-glow" style="animation-delay:0.2s"/>
+                                <circle cx="108" cy="118" r="2.5" fill="#06b6d4" class="engine-glow" style="animation-delay:0.4s"/>
+                                <defs>
+                                    <linearGradient id="sfBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#93c5fd"/><stop offset="100%" stop-color="#1d4ed8"/></linearGradient>
+                                    <linearGradient id="sfBlue2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient>
+                                    <linearGradient id="sfBlue3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1d4ed8"/><stop offset="100%" stop-color="#0e7490"/></linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="fleet-info">
+                            <span class="fleet-class">CLASS A SUBORBITAL</span>
+                            <h3 class="fleet-name">ZNT Aurora</h3>
+                            <p class="fleet-desc">Our flagship suborbital craft. 6 passengers, triple-paned panoramic windows, built for breathtaking ascent and descent experiences.</p>
+                            <div class="fleet-specs">
+                                <div class="spec"><span class="spec-v">6</span><span class="spec-k">Seats</span></div>
+                                <div class="spec"><span class="spec-v">100km</span><span class="spec-k">Altitude</span></div>
+                                <div class="spec"><span class="spec-v">2h</span><span class="spec-k">Flight</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fleet-card fleet-card-featured reveal-up delay-2" data-tilt>
+                        <div class="fleet-badge-top">JASIR'S CRAFT</div>
+                        <div class="fleet-visual fleet-visual-odyssey">
+                            <svg viewBox="0 0 200 160" class="spacecraft-svg">
+                                <ellipse cx="100" cy="115" rx="70" ry="14" fill="rgba(139,92,246,0.15)" />
+                                <polygon points="100,15 120,85 100,98 80,85" fill="url(#sfViolet)" />
+                                <ellipse cx="100" cy="98" rx="26" ry="10" fill="url(#sfViolet2)" />
+                                <polygon points="80,85 50,108 56,96" fill="url(#sfViolet3)" opacity="0.8"/>
+                                <polygon points="120,85 150,108 144,96" fill="url(#sfViolet3)" opacity="0.8"/>
+                                <rect x="82" y="78" width="36" height="8" rx="4" fill="rgba(139,92,246,0.5)"/>
+                                <circle cx="100" cy="118" r="5" fill="#8b5cf6" class="engine-glow"/>
+                                <circle cx="90" cy="122" r="3" fill="#a78bfa" class="engine-glow" style="animation-delay:0.15s"/>
+                                <circle cx="110" cy="122" r="3" fill="#a78bfa" class="engine-glow" style="animation-delay:0.3s"/>
+                                <defs>
+                                    <linearGradient id="sfViolet" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c4b5fd"/><stop offset="100%" stop-color="#5b21b6"/></linearGradient>
+                                    <linearGradient id="sfViolet2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
+                                    <linearGradient id="sfViolet3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#4c1d95"/><stop offset="100%" stop-color="#1e3a8a"/></linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="fleet-info">
+                            <span class="fleet-class">CLASS B ORBITAL</span>
+                            <h3 class="fleet-name">ZNT Odyssey</h3>
+                            <p class="fleet-desc">The Odyssey carries Commander Jasir to 400 km orbit. Full private suite, observation dome, AI co-pilot, and autonomous docking capability.</p>
+                            <div class="fleet-specs">
+                                <div class="spec"><span class="spec-v">4</span><span class="spec-k">Passengers</span></div>
+                                <div class="spec"><span class="spec-v">400km</span><span class="spec-k">Altitude</span></div>
+                                <div class="spec"><span class="spec-v">3 Days</span><span class="spec-k">Duration</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fleet-card reveal-up delay-3" data-tilt>
+                        <div class="fleet-visual fleet-visual-selene">
+                            <svg viewBox="0 0 200 160" class="spacecraft-svg">
+                                <ellipse cx="100" cy="120" rx="75" ry="14" fill="rgba(6,182,212,0.12)" />
+                                <polygon points="100,10 125,80 100,95 75,80" fill="url(#sfCyan)" />
+                                <ellipse cx="100" cy="95" rx="30" ry="12" fill="url(#sfCyan2)" />
+                                <polygon points="75,80 40,110 48,98" fill="url(#sfCyan3)" opacity="0.8"/>
+                                <polygon points="125,80 160,110 152,98" fill="url(#sfCyan3)" opacity="0.8"/>
+                                <polygon points="40,110 20,128 40,115" fill="url(#sfCyan3)" opacity="0.5"/>
+                                <polygon points="160,110 180,128 160,115" fill="url(#sfCyan3)" opacity="0.5"/>
+                                <circle cx="100" cy="122" r="6" fill="#06b6d4" class="engine-glow"/>
+                                <circle cx="88" cy="127" r="3.5" fill="#22d3ee" class="engine-glow" style="animation-delay:0.2s"/>
+                                <circle cx="112" cy="127" r="3.5" fill="#22d3ee" class="engine-glow" style="animation-delay:0.4s"/>
+                                <defs>
+                                    <linearGradient id="sfCyan" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a5f3fc"/><stop offset="100%" stop-color="#0e7490"/></linearGradient>
+                                    <linearGradient id="sfCyan2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
+                                    <linearGradient id="sfCyan3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#164e63"/><stop offset="100%" stop-color="#4c1d95"/></linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="fleet-info">
+                            <span class="fleet-class">CLASS C DEEP SPACE</span>
+                            <h3 class="fleet-name">ZNT Selene</h3>
+                            <p class="fleet-desc">The Selene is our lunar vessel — built for 7-day missions to cislunar space. Extended life support, onboard lab, and full lunar-orbit capability.</p>
+                            <div class="fleet-specs">
+                                <div class="spec"><span class="spec-v">2</span><span class="spec-k">Passengers</span></div>
+                                <div class="spec"><span class="spec-v">384K km</span><span class="spec-k">Distance</span></div>
+                                <div class="spec"><span class="spec-v">7 Days</span><span class="spec-k">Duration</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== MISSION TIMELINE ========== -->
+        <section class="timeline-section" id="timeline">
+            <div class="section-container">
+                <div class="section-header reveal-up">
+                    <span class="section-tag">JOURNEY ROADMAP</span>
+                    <h2 class="section-title">Your Mission <span class="gradient-text">Timeline</span></h2>
+                    <p class="section-desc">From reservation to splashdown — every step of your orbital adventure, precisely planned.</p>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-item timeline-left reveal-up">
+                        <div class="tl-dot tl-dot-blue"></div>
+                        <div class="tl-card">
+                            <span class="tl-phase">PHASE 01</span>
+                            <h3>Reservation & Clearance</h3>
+                            <p>Secure your seat, complete medical evaluation, and receive your encrypted mission credential package.</p>
+                            <span class="tl-duration">Week 1–2</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item timeline-right reveal-up delay-1">
+                        <div class="tl-dot tl-dot-violet"></div>
+                        <div class="tl-card">
+                            <span class="tl-phase">PHASE 02</span>
+                            <h3>Pre-Flight Training</h3>
+                            <p>5-day immersive training at our Zenith Space Academy. Zero-G simulation, EVA procedures, emergency protocols.</p>
+                            <span class="tl-duration">Week 3–4</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item timeline-left reveal-up delay-2">
+                        <div class="tl-dot tl-dot-cyan"></div>
+                        <div class="tl-card">
+                            <span class="tl-phase">PHASE 03</span>
+                            <h3>Launch Day</h3>
+                            <p>Suit up, board ZNT Odyssey, and ignite. Zero to Mach 25 in under 9 minutes. The ride of a lifetime begins.</p>
+                            <span class="tl-duration">T-0 Launch</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item timeline-right reveal-up delay-3">
+                        <div class="tl-dot tl-dot-amber"></div>
+                        <div class="tl-card">
+                            <span class="tl-phase">PHASE 04</span>
+                            <h3>Orbital Operations</h3>
+                            <p>3 days in orbit at 400 km. Conduct experiments, observe Earth below, experience 16 sunrises per day.</p>
+                            <span class="tl-duration">Days 1–3</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item timeline-left reveal-up delay-4">
+                        <div class="tl-dot tl-dot-green"></div>
+                        <div class="tl-card">
+                            <span class="tl-phase">PHASE 05</span>
+                            <h3>Re-entry & Splashdown</h3>
+                            <p>Controlled atmospheric re-entry with plasma shield active. Pacific Ocean splashdown, recovery vessel awaits with champagne.</p>
+                            <span class="tl-duration">Return Day</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CREW TESTIMONIALS ========== -->
+        <section class="testimonials-section" id="testimonials">
+            <div class="section-container">
+                <div class="section-header reveal-up">
+                    <span class="section-tag">CREW LOGS</span>
+                    <h2 class="section-title">Words from <span class="gradient-text">Alumni Cosmonauts</span></h2>
+                    <p class="section-desc">Real accounts from passengers who've already made the journey beyond.</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testi-card reveal-up delay-1">
+                        <div class="testi-stars">★★★★★</div>
+                        <p class="testi-quote">"The moment the engines cut and we hit silence — that's when it hit me. I was floating 400 kilometres above Earth, watching cities drift by like scattered embers. Nothing prepares you for that silence."</p>
+                        <div class="testi-author">
+                            <div class="testi-avatar" style="background: linear-gradient(135deg,#3b82f6,#8b5cf6);">AK</div>
+                            <div>
+                                <div class="testi-name">Aria Khan</div>
+                                <div class="testi-role">Tech Founder • Orbital Mission 2024</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testi-card testi-card-featured reveal-up delay-2">
+                        <div class="testi-stars">★★★★★</div>
+                        <p class="testi-quote">"I've summit Everest, dived the Mariana Trench, piloted a fighter jet — nothing, and I mean nothing, compares to watching the curvature of Earth from your private observation dome at 04:00 AM in absolute silence."</p>
+                        <div class="testi-author">
+                            <div class="testi-avatar" style="background: linear-gradient(135deg,#f59e0b,#f97316);">MC</div>
+                            <div>
+                                <div class="testi-name">Marco Castellano</div>
+                                <div class="testi-role">Explorer & Author • Lunar Mission 2025</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testi-card reveal-up delay-3">
+                        <div class="testi-stars">★★★★★</div>
+                        <p class="testi-quote">"Zenith's engineering is in a class of its own. As someone with an aerospace background, I can tell you — the ZNT Odyssey is the most capable and most beautiful spacecraft ever built. The crew are extraordinary professionals."</p>
+                        <div class="testi-author">
+                            <div class="testi-avatar" style="background: linear-gradient(135deg,#06b6d4,#22c55e);">SR</div>
+                            <div>
+                                <div class="testi-name">Dr. Sana Raza</div>
+                                <div class="testi-role">Aerospace Engineer • Orbital 2025</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== FAQ ACCORDION ========== -->
+        <section class="faq-section" id="faq">
+            <div class="section-container">
+                <div class="section-header reveal-up">
+                    <span class="section-tag">MISSION BRIEFING</span>
+                    <h2 class="section-title">Frequently Asked <span class="gradient-text">Questions</span></h2>
+                    <p class="section-desc">Everything you need to know before boarding your spacecraft.</p>
+                </div>
+                <div class="faq-list reveal-up">
+                    <div class="faq-item">
+                        <button class="faq-q" data-faq="0">
+                            <span>Who is eligible to fly with Zenith?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="faq-a" id="faq-0">
+                            <p>Passengers must be between 18–75 years of age, weigh between 50–110 kg, and pass a Zenith Medical Clearance Assessment. Most healthy individuals qualify. No prior spaceflight or aviation experience required.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" data-faq="1">
+                            <span>How long is the pre-flight training programme?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="faq-a" id="faq-1">
+                            <p>Suborbital missions require a 3-day training programme. Orbital missions require a comprehensive 5-day programme at the Zenith Space Academy including zero-G simulation, emergency egress, suit operations, and spacecraft familiarisation.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" data-faq="2">
+                            <span>What is the safety record of Zenith spacecraft?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="faq-a" id="faq-2">
+                            <p>Zenith maintains a 100% mission success rate across 12 completed flights and 247 passengers. Our spacecraft undergo over 2,000 hours of ground testing between missions. Every system has triple redundancy and autonomous abort capability at any flight phase.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" data-faq="3">
+                            <span>What happens if a launch is scrubbed?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="faq-a" id="faq-3">
+                            <p>Scrubbed launches are rescheduled within 30 days at no cost to the passenger. All accommodation and transfer costs during the standby period are covered by Zenith. We never launch unless every system is fully nominal.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" data-faq="4">
+                            <span>Can I bring personal items or equipment on board?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="faq-a" id="faq-4">
+                            <p>Each passenger is allocated 500g of personal payload. Common items include family photographs, small mementos, and USB drives. All items must pass Zenith payload certification. Cameras and biometric wearables are fully approved.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" data-faq="5">
+                            <span>Is there Wi-Fi and communication available in orbit?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="faq-a" id="faq-5">
+                            <p>Yes. ZNT Odyssey features high-bandwidth Ku-band satellite internet with 200 Mbps downlink. Passengers can video call, post to social media in real-time, and stream content. Communication blackout during re-entry lasts approximately 4 minutes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== APP & TOOLS CTA ========== -->
+        <section class="tools-section" id="tools">
+            <div class="section-container">
+                <div class="tools-inner reveal-up">
+                    <div class="tools-glow-orb tools-orb-1"></div>
+                    <div class="tools-glow-orb tools-orb-2"></div>
+                    <div class="tools-content">
+                        <span class="section-tag">ZENITH ECOSYSTEM</span>
+                        <h2 class="tools-title">Your Mission, <span class="gradient-text">In Your Pocket</span></h2>
+                        <p class="tools-desc">Track your flight in real-time, communicate with Mission Control, review telemetry data, and connect with fellow passengers — all from the Zenith app.</p>
+                        <div class="tools-features-row">
+                            <div class="tool-feat">
+                                <div class="tool-feat-icon" style="background: rgba(59,130,246,0.15);">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                                </div>
+                                <span>Live Telemetry</span>
+                            </div>
+                            <div class="tool-feat">
+                                <div class="tool-feat-icon" style="background: rgba(139,92,246,0.15);">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                                </div>
+                                <span>Mission Chat</span>
+                            </div>
+                            <div class="tool-feat">
+                                <div class="tool-feat-icon" style="background: rgba(6,182,212,0.15);">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                </div>
+                                <span>Orbit Tracker</span>
+                            </div>
+                            <div class="tool-feat">
+                                <div class="tool-feat-icon" style="background: rgba(245,158,11,0.15);">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.5"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/></svg>
+                                </div>
+                                <span>AR Mission View</span>
+                            </div>
+                        </div>
+                        <div class="tools-cta-row">
+                            <button class="btn-primary">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                                <span>Download for iOS</span>
+                            </button>
+                            <button class="btn-ghost">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5"/><path d="m15 15 6 6m-6 0 6-6"/></svg>
+                                <span>Download for Android</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tools-mockup">
+                        <div class="phone-frame">
+                            <div class="phone-screen">
+                                <div class="app-header">
+                                    <span>ZENITH APP</span>
+                                    <span class="app-live">● LIVE</span>
+                                </div>
+                                <div class="app-metric">
+                                    <span class="app-metric-label">Altitude</span>
+                                    <span class="app-metric-val" id="app-alt">400.2 km</span>
+                                </div>
+                                <div class="app-metric">
+                                    <span class="app-metric-label">Speed</span>
+                                    <span class="app-metric-val">27,600 km/h</span>
+                                </div>
+                                <div class="app-metric">
+                                    <span class="app-metric-label">Orbit</span>
+                                    <span class="app-metric-val" style="color:var(--green)">42 / 48</span>
+                                </div>
+                                <div class="app-bar-group">
+                                    <div class="app-bar-row">
+                                        <span>O₂ Level</span>
+                                        <div class="app-bar"><div class="app-bar-fill" style="width:94%;background:var(--green)"></div></div>
+                                    </div>
+                                    <div class="app-bar-row">
+                                        <span>Battery</span>
+                                        <div class="app-bar"><div class="app-bar-fill" style="width:78%;background:var(--blue)"></div></div>
+                                    </div>
+                                </div>
+                                <div class="app-nav-row">
+                                    <span class="app-nav-dot active"></span>
+                                    <span class="app-nav-dot"></span>
+                                    <span class="app-nav-dot"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMMANDER PROFILE SHOWCASE SECTION -->
+        <section class="commander-section" id="commander">
+            <div class="section-container">
+                <div class="commander-glass-card reveal-up">
+                    <div class="commander-grid">
+                        <div class="commander-photo-col">
+                            <div class="commander-photo-frame">
+                                <img src="jasir_avatar.png" alt="Jasir Abdul Hameed" class="commander-photo-img">
+                                <span class="commander-photo-glow"></span>
+                                <div class="commander-status-badge">
+                                    <span class="badge-dot"></span>
+                                    <span>CONFIRMED PASSENGER</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="commander-details-col">
+                            <span class="section-tag">FEATURED MISSION SPECIALIST</span>
+                            <h2 class="commander-name">Jasir Abdul Hameed</h2>
+                            <p class="commander-bio">
+                                Full Stack Developer, Game Developer & AI/ML Engineer (Age 23). Skilled in building scalable web and mobile applications, interactive 3D game engines, and intelligent software solutions using Node.js, Python, JavaScript, and Flutter.
+                            </p>
+                            <div class="commander-achievement-grid">
+                                <div class="c-achieve">
+                                    <span class="c-val">Full Stack</span>
+                                    <span class="c-lbl">Node.js & Flutter</span>
+                                </div>
+                                <div class="c-achieve">
+                                    <span class="c-val">Game Dev</span>
+                                    <span class="c-lbl">3D & Interactive</span>
+                                </div>
+                                <div class="c-achieve">
+                                    <span class="c-val">AI / ML</span>
+                                    <span class="c-lbl">Python & Smart Systems</span>
+                                </div>
+                            </div>
+                            <div class="commander-cta-row">
+                                <button class="btn-primary" id="btn-commander-pass">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                                    <span>Launch Boarding Pass</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reservation CTA Section -->
+        <section class="reserve-section" id="reserve">
+            <div class="section-container">
+                <div class="reserve-card reveal-up">
+                    <div class="reserve-glow"></div>
+                    <span class="section-tag">NEXT LAUNCH</span>
+                    <h2 class="reserve-title">Your Journey Begins Now</h2>
+                    <p class="reserve-desc">Join the waitlist for our next departure. Limited seats available per mission.</p>
+
+                    <!-- Countdown Timer -->
+                    <div class="countdown" id="countdown">
+                        <div class="countdown-block">
+                            <span class="countdown-num" id="cd-days">00</span>
+                            <span class="countdown-label">Days</span>
+                        </div>
+                        <div class="countdown-sep">:</div>
+                        <div class="countdown-block">
+                            <span class="countdown-num" id="cd-hours">00</span>
+                            <span class="countdown-label">Hours</span>
+                        </div>
+                        <div class="countdown-sep">:</div>
+                        <div class="countdown-block">
+                            <span class="countdown-num" id="cd-mins">00</span>
+                            <span class="countdown-label">Minutes</span>
+                        </div>
+                        <div class="countdown-sep">:</div>
+                        <div class="countdown-block">
+                            <span class="countdown-num" id="cd-secs">00</span>
+                            <span class="countdown-label">Seconds</span>
+                        </div>
+                    </div>
+
+                    <form class="reserve-form" id="reserve-form">
+                        <input type="email" placeholder="Enter your email" class="reserve-input" id="reserve-email" required>
+                        <button type="submit" class="reserve-btn">Join Waitlist</button>
+                    </form>
+                    <p class="reserve-note">No payment required. Priority access when seats open.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Holographic Boarding Pass Modal -->
+        <div class="modal-overlay" id="boarding-pass-modal">
+            <div class="boarding-pass-card">
+                <button class="modal-close-btn" id="btn-close-modal">✕</button>
+
+                <div class="pass-header">
+                    <div class="pass-logo">ZENITH ORBITAL</div>
+                    <div class="pass-ticket-id">REF: ZNT-2027-JAH-023</div>
+                </div>
+
+                <div class="pass-user-details">
+                    <img src="jasir_avatar.png" alt="Jasir Abdul Hameed" class="pass-user-img">
+                    <div class="pass-user-meta">
+                        <h3>Jasir Abdul Hameed</h3>
+                        <p>Age 23 • Full Stack Developer, Game Dev & AI/ML Specialist</p>
+                    </div>
+                </div>
+
+                <div class="pass-grid">
+                    <div class="pass-field">
+                        <span>FLIGHT TIER</span>
+                        <span>Orbital (Tier II)</span>
+                    </div>
+                    <div class="pass-field">
+                        <span>SEAT ASSIGNED</span>
+                        <span>01A Window</span>
+                    </div>
+                    <div class="pass-field">
+                        <span>LAUNCH YEAR</span>
+                        <span>2027</span>
+                    </div>
+                    <div class="pass-field">
+                        <span>TARGET ORBIT</span>
+                        <span>400 KM Altitude</span>
+                    </div>
+                    <div class="pass-field">
+                        <span>PASSENGER AGE</span>
+                        <span>23 Years</span>
+                    </div>
+                    <div class="pass-field">
+                        <span>EMAIL REGISTERED</span>
+                        <span>jasirlvl@gmail.com</span>
+                    </div>
+                </div>
+
+                <div class="pass-barcode">
+                    <div class="barcode-lines"></div>
+                    <div class="barcode-text">ZNT-8593940681-JASIR-ABDUL-HAMEED</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-inner">
+                <div class="footer-top">
+                    <div class="footer-brand">
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="footer-logo-icon">
+                            <circle cx="20" cy="20" r="18" stroke="url(#fgrad)" stroke-width="1.5" opacity="0.5"/>
+                            <circle cx="20" cy="20" r="4" fill="url(#fgrad)"/>
+                            <defs><linearGradient id="fgrad" x1="0" y1="0" x2="40" y2="40"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+                        </svg>
+                        <span>ZENITH</span>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#">About</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Safety</a>
+                        <a href="#">Press</a>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <span>© 2026 Zenith Aerospace Inc. Reserved for Commander Jasir Abdul Hameed.</span>
+                    <span class="footer-tagline">Ad astra per aspera.</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
