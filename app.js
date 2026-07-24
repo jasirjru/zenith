@@ -208,14 +208,113 @@
         violetPoint.position.set(-4, -3, -6);
         scene.add(violetPoint);
 
-        // Mouse parallax tracking
-        document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-        });
+        // === 3D FLEET OF CRAFT FLYING SIDEWISE IN BACKGROUND ===
+        window.spacecraftFleet = [];
+        
+        function create3DSpacecraft(colorHex, scale = 1) {
+            const craftGroup = new THREE.Group();
 
-        window.addEventListener('resize', onResize);
-        animate();
+            // Main Fuselage / Hull (Cone)
+            const hullGeo = new THREE.ConeGeometry(0.35 * scale, 1.6 * scale, 5);
+            const hullMat = new THREE.MeshStandardMaterial({
+                color: 0x1e293b,
+                metalness: 0.8,
+                roughness: 0.2,
+                emissive: 0x0f172a
+            });
+            const hullMesh = new THREE.Mesh(hullGeo, hullMat);
+            hullMesh.rotation.z = -Math.PI / 2; // Point sideways
+            craftGroup.add(hullMesh);
+
+            // Cockpit Glass
+            const cockpitGeo = new THREE.SphereGeometry(0.22 * scale, 16, 16);
+            const cockpitMat = new THREE.MeshPhysicalMaterial({
+                color: colorHex,
+                transmission: 0.6,
+                opacity: 0.9,
+                transparent: true,
+                roughness: 0.1,
+                ior: 1.5
+            });
+            const cockpitMesh = new THREE.Mesh(cockpitGeo, cockpitMat);
+            cockpitMesh.position.set(0.2 * scale, 0.05 * scale, 0);
+            craftGroup.add(cockpitMesh);
+
+            // Delta Wings
+            const wingGeo = new THREE.BufferGeometry();
+            const vertices = new Float32Array([
+                 0.2 * scale, 0,  0.9 * scale, // Wing tip right
+                -0.6 * scale, 0,  0.1 * scale, // Root back
+                 0.4 * scale, 0,  0.1 * scale, // Root front
+                 0.2 * scale, 0, -0.9 * scale, // Wing tip left
+                -0.6 * scale, 0, -0.1 * scale,
+                 0.4 * scale, 0, -0.1 * scale
+            ]);
+            wingGeo.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+            const wingMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.9, side: THREE.DoubleSide });
+            const wingMesh = new THREE.Mesh(wingGeo, wingMat);
+            craftGroup.add(wingMesh);
+
+            // Plasma Thruster Glow
+            const thrusterGeo = new THREE.SphereGeometry(0.12 * scale, 16, 16);
+            const thrusterMat = new THREE.MeshBasicMaterial({ color: colorHex });
+            const thrusterMesh = new THREE.Mesh(thrusterGeo, thrusterMat);
+            thrusterMesh.position.set(-0.8 * scale, 0, 0);
+            craftGroup.add(thrusterMesh);
+
+            // Thruster Trail Particles
+            const trailCount = 35;
+            const trailGeo = new THREE.BufferGeometry();
+            const trailPos = new Float32Array(trailCount * 3);
+            for (let i = 0; i < trailCount; i++) {
+                trailPos[i * 3]     = -0.8 * scale - (i * 0.08 * scale);
+                trailPos[i * 3 + 1] = (Math.random() - 0.5) * 0.06 * scale;
+                trailPos[i * 3 + 2] = (Math.random() - 0.5) * 0.06 * scale;
+            }
+            trailGeo.setAttribute('position', new THREE.BufferAttribute(trailPos, 3));
+            const trailMat = new THREE.PointsMaterial({
+                size: 0.08 * scale,
+                color: colorHex,
+                transparent: true,
+                opacity: 0.75,
+                blending: THREE.AdditiveBlending
+            });
+            const trailPoints = new THREE.Points(trailGeo, trailMat);
+            craftGroup.add(trailPoints);
+
+            return { group: craftGroup, trailPoints };
+        }
+
+        // Spawn Craft 1 (Main Flagship Craft - Left to Right)
+        const craft1 = create3DSpacecraft(0x3b82f6, 1.2);
+        craft1.group.position.set(-18, 2.5, -4);
+        craft1.speed = 0.035;
+        craft1.direction = 1;
+        craft1.baseY = 2.5;
+        craft1.zDepth = -4;
+        scene.add(craft1.group);
+        window.spacecraftFleet.push(craft1);
+
+        // Spawn Craft 2 (Sleek Scout Craft - Right to Left)
+        const craft2 = create3DSpacecraft(0x8b5cf6, 0.85);
+        craft2.group.position.set(18, -1.8, -6);
+        craft2.group.rotation.y = Math.PI; // Face left
+        craft2.speed = 0.025;
+        craft2.direction = -1;
+        craft2.baseY = -1.8;
+        craft2.zDepth = -6;
+        scene.add(craft2.group);
+        window.spacecraftFleet.push(craft2);
+
+        // Spawn Craft 3 (High Orbit Shuttle - Left to Right distant)
+        const craft3 = create3DSpacecraft(0x06b6d4, 0.6);
+        craft3.group.position.set(-22, 4.2, -10);
+        craft3.speed = 0.018;
+        craft3.direction = 1;
+        craft3.baseY = 4.2;
+        craft3.zDepth = -10;
+        scene.add(craft3.group);
+        window.spacecraftFleet.push(craft3);
     }
 
     function onResize() {
@@ -243,6 +342,27 @@
         // Orbit ring subtle rotation
         if (orbitRingMesh) {
             orbitRingMesh.rotation.z += 0.0005;
+        }
+
+        // Sidewise motion animation for 3D Spacecraft fleet
+        if (window.spacecraftFleet) {
+            window.spacecraftFleet.forEach((craft, idx) => {
+                // Sidewise movement
+                craft.group.position.x += craft.speed * craft.direction;
+                
+                // Gentle floating wave (Y-axis roll & bobbing)
+                craft.group.position.y = craft.baseY + Math.sin(time * 1.5 + idx * 2) * 0.25;
+                craft.group.rotation.x = Math.sin(time * 2 + idx) * 0.08; // Subtle pitch
+                craft.group.rotation.z = Math.cos(time * 1.8 + idx) * 0.05 * craft.direction; // Subtle roll
+
+                // Screen boundary wrapping (continuous sidewise loop)
+                const boundX = 24;
+                if (craft.direction === 1 && craft.group.position.x > boundX) {
+                    craft.group.position.x = -boundX;
+                } else if (craft.direction === -1 && craft.group.position.x < -boundX) {
+                    craft.group.position.x = boundX;
+                }
+            });
         }
 
         // Mouse-driven camera parallax
